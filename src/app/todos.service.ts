@@ -1,35 +1,40 @@
 import { Injectable } from '@angular/core';
-//import { Http } from '@angular/http';
-//import 'rxjs/add/operator/map';
+
+interface TodoModel {
+  name?: string,
+  completed?: boolean
+}
 
 @Injectable()
 export class TodosService {
-  private _items = [
-    {
-      "name": "Comprar el pan",
-      "completed": true
-    },{
-      "name": "Poner la lavadora",
-      "completed": false
-    },{
-      "name": "Tender la ropa",
-      "completed": true
-    },{
-      "name": "Sacar a pasear el perro de la vecina",
-      "completed": false
-    }
-  ];
+  private _items:Array<TodoModel>;
 
-  // constructor(http:Http) {
-  //   this.items = http.get('src/todos.json')
-  //     .map(response => response.json());
+  constructor() {
+    this.items = [
+      {
+        "name": "Comprar el pan",
+        "completed": true
+      },{
+        "name": "Poner la lavadora",
+        "completed": false
+      },{
+        "name": "Tender la ropa",
+        "completed": true
+      },{
+        "name": "Sacar a pasear el perro de la vecina",
+        "completed": false
+      }
+    ];
+  }
 
-  //   return this;
-  // }
+  set items(newItems:Array<TodoModel>) {
+    this._items = newItems;
+  }
 
   get items() {
     return this._items;
   }
+
   add (todo) {
     this._items.push(todo);
   }
