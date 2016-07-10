@@ -11,6 +11,7 @@ module.exports = function(defaults) {
       'es6-shim/es6-shim.js',
       'reflect-metadata/**/*.+(js|js.map)',
       'rxjs/**/*.+(js|js.map)',
+      'lodash/lodash.js',
       '@angular/**/*.+(js|js.map)'
     ]
   });
