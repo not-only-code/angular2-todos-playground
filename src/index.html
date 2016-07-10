@@ -1,31 +1,25 @@
 <!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Angular2TodosPlayground</title>
-  <base href="/">
-
-  {{#unless environment.production}}
-  <script src="/ember-cli-live-reload.js" type="text/javascript"></script>
-  {{/unless}}
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <angular2-todos-playground-app>Loading...</angular2-todos-playground-app>
-
-  
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Angular 2 Todo's Playground</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="index.css">
+    <base href="/">
+    <!-- CSS overrides - remove if you don't need it -->
+    <!-- <link rel="stylesheet" href="css/app.css"> -->
+    {{#unless environment.production}}
+    <script src="/ember-cli-live-reload.js" type="text/javascript"></script>
+    {{/unless}}
+  </head>
+  <body>
+    <angular2-todos-playground-app>Loading...</angular2-todos-playground-app>
     {{#each scripts.polyfills}}<script src="{{.}}"></script>{{/each}}
     <script>
       System.import('system-config.js').then(function () {
         System.import('main');
       }).catch(console.error.bind(console));
     </script>
-
-  
-
-
-
-</body>
+  </body>
 </html>

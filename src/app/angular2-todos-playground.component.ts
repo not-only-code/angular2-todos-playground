@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['angular2-todos-playground.component.css']
 })
 export class Angular2TodosPlaygroundAppComponent {
-  title = 'angular2-todos-playground works!';
+  clearCompleted = function() {
+    console.log('clearCompleted');
+  };
 }
