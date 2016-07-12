@@ -6,8 +6,7 @@ import * as _ from 'lodash';
 @Component({
   moduleId: module.id,
   selector: 'app-new-todo',
-  templateUrl: 'new-todo.component.html',
-  styleUrls: ['new-todo.component.css']
+  templateUrl: 'new-todo.component.html'
 })
 export class NewTodoComponent implements OnInit {
   @Input() todosService:TodosService;

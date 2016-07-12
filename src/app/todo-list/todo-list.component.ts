@@ -6,8 +6,7 @@ import * as _ from 'lodash';
 @Component({
   moduleId: module.id,
   selector: 'app-todo-list',
-  templateUrl: 'todo-list.component.html',
-  styleUrls: ['todo-list.component.css']
+  templateUrl: 'todo-list.component.html'
 })
 export class TodoListComponent implements OnInit {
   @Input() todosService:TodosService;
