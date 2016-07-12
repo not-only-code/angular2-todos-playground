@@ -1,26 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TodosService } from '../todos.service';
+import { TodoModel } from '../todo.model';
+import * as _ from 'lodash';
 
 @Component({
   moduleId: module.id,
   selector: 'app-new-todo',
   templateUrl: 'new-todo.component.html',
-  styleUrls: ['new-todo.component.css'],
-  providers: [TodosService]
+  styleUrls: ['new-todo.component.css']
 })
 export class NewTodoComponent implements OnInit {
+  @Input() todosService:TodosService;
+  items:TodoModel[];
 
-  constructor(private todosService:TodosService) {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   addTodo($input) {
-    this.todosService.add({
-      name: $input.value,
-      completed: false
-    });
+    if (_.isEmpty($input.value)) {
+      return;
+    }
+    this.todosService.addItem($input.value);
     $input.value = "";
     $input.blur();
   }
