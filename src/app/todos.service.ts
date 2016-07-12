@@ -1,41 +1,42 @@
 import { Injectable } from '@angular/core';
-
-interface TodoModel {
-  name?: string,
-  completed?: boolean
-}
+import { Http, Response } from '@angular/http';
+import { TodoModel } from './todo.model';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import * as _ from 'lodash';
 
 @Injectable()
 export class TodosService {
-  private _items:Array<TodoModel>;
+  items:TodoModel[] = [];
+  errorMessage:any;
 
-  constructor() {
-    this.items = [
-      {
-        "name": "Comprar el pan",
-        "completed": true
-      },{
-        "name": "Poner la lavadora",
-        "completed": false
-      },{
-        "name": "Tender la ropa",
-        "completed": true
-      },{
-        "name": "Sacar a pasear el perro de la vecina",
-        "completed": false
-      }
-    ];
+  constructor(private http:Http) {}
+
+  loadItems ():Observable<TodoModel[]> {
+    return this.http.get('/todos.json')
+      .map((res) => {
+        this.items = res.json() || { };
+        return this.items;
+      });
   }
 
-  set items(newItems:Array<TodoModel>) {
-    this._items = newItems;
+  private handleError (error:any) {
+    let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+    return Observable.throw(errMsg);
   }
 
-  get items() {
-    return this._items;
+  addItem (todoName:string) {
+    this.items.push({
+      name: todoName,
+      completed: false
+    });
   }
 
-  add (todo) {
-    this._items.push(todo);
+  clearCompleted = () => {
+    let completeds = _.filter(this.items, {completed: true});
+    _.each(completeds, (item) => {
+      _.remove(this.items, item);  
+    });
   }
 }
