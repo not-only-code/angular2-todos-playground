@@ -1,42 +1,83 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { TodoModel } from './todo.model';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import * as _ from 'lodash';
 
 @Injectable()
 export class TodosService {
+  private allItems:TodoModel[] = [];
   items:TodoModel[] = [];
-  errorMessage:any;
 
-  constructor(private http:Http) {}
+  constructor(
+    private http:Http,
+    private router:Router
+  ) {
+      if (!this.allItems.length) {
+        this.loadItems()
+          .subscribe((items) => {
+            this.allItems = items;
+            this.filterItems();
+          });
+     }
+  }
 
-  loadItems ():Observable<TodoModel[]> {
+  filterItems():TodoModel[] {
+    switch(this.router.url) {
+      case '/completed':
+        this.items = this.getCompleted();
+        break;
+      case '/active':
+        this.items = this.getActive();
+        break;
+      default: 
+        this.items = this.allItems;
+    }
+    return this.items;
+  }
+
+  private loadItems():any {
     return this.http.get('/todos.json')
-      .map((res) => {
-        this.items = res.json() || { };
-        return this.items;
-      });
+      .map((res) => res.json() || { } );
   }
 
-  private handleError (error:any) {
-    let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
-  }
-
-  addItem (todoName:string) {
-    this.items.push({
+  public addItem (todoName:string):void {
+    this.allItems.push({
       name: todoName,
       completed: false
     });
+    this.filterItems();
   }
 
-  clearCompleted = () => {
-    let completeds = _.filter(this.items, {completed: true});
+  public removeItem = (item:TodoModel, silent:Boolean = false):void => {
+    _.remove(this.allItems, item);
+    if (!silent) {
+      this.filterItems();
+    }
+  }
+
+  private getItems(completed:Boolean = false):TodoModel[] {
+    return _.filter(this.allItems, {completed: completed});
+  }
+
+  public getCompleted():TodoModel[] {
+    return this.getItems(true);
+  }
+
+  public getActive():TodoModel[] {
+    return this.getItems(false);
+  }
+
+  public getAllItems():TodoModel[] {
+    return this.allItems;
+  }
+
+  public clearCompleted = ():void => {
+    let completeds = _.filter(this.allItems, {completed: true});
     _.each(completeds, (item) => {
-      _.remove(this.items, item);  
+      this.removeItem(item, true);
     });
+    this.filterItems();
   }
 }
