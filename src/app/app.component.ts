@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { NewTodoComponent } from './new-todo/';
-import { TodoListComponent } from './todo-list/';
+import { FooterComponent } from './footer/';
 import { TodosService } from './todos.service';
-import { TodoModel } from './todo.model';
-
 
 @Component({
   moduleId: module.id,
   selector: 'app',
   templateUrl: 'app.component.html',
-  directives: [NewTodoComponent, TodoListComponent],
+  directives: [NewTodoComponent, FooterComponent, ROUTER_DIRECTIVES],
   providers: [TodosService]
 })
 export class AppComponent implements OnInit {
 
-  constructor(private todosService:TodosService) {}
+  constructor() {}
 
   ngOnInit() {}
-
-  clearCompleted = this.todosService.clearCompleted;
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TodosService } from '../todos.service';
-import { TodoModel } from '../todo.model';
 import * as _ from 'lodash';
 
 @Component({
@@ -9,10 +8,8 @@ import * as _ from 'lodash';
   templateUrl: 'new-todo.component.html'
 })
 export class NewTodoComponent implements OnInit {
-  @Input() todosService:TodosService;
-  items:TodoModel[];
 
-  constructor() {}
+  constructor(private todosService:TodosService) {}
 
   ngOnInit() {}
 
