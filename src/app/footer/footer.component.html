@@ -15,5 +15,5 @@
     </li>
   </ul>
   <!-- Hidden if no completed items are left ↓ -->
-  <button class="clear-completed" (click)="clearCompleted()" *ngIf="todosService.getActive().length">Clear completed</button>
+  <button class="clear-completed" (click)="todosService.clearCompleted()" *ngIf="todosService.getActive().length">Clear completed</button>
 </footer>

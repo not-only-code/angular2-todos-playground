@@ -14,6 +14,4 @@ export class FooterComponent implements OnInit {
   constructor(private router: Router, private todosService:TodosService) {}
 
   ngOnInit() {}
-
-  clearCompleted = this.todosService.clearCompleted;
 }
