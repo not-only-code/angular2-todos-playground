@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TodosService } from '../todos.service';
 import { TodoModel } from '../todo.model';
 import * as _ from 'lodash';
@@ -9,36 +9,34 @@ import * as _ from 'lodash';
   templateUrl: 'todo-list.component.html'
 })
 export class TodoListComponent implements OnInit {
-  @Input() todosService:TodosService;
   allCompleted:boolean;
-  items:TodoModel[];
   editing:TodoModel;
 
-  constructor() {}
+  constructor(
+    private todosService:TodosService) {}
 
   ngOnInit() {
-    this.todosService.loadItems()
-      .subscribe((items) => {
-        this.items = items;
-        this.allCompleted = items.length === _.filter(items, {completed:true}).length;
-      });
+    this.todosService.filterItems();
+    let items = this.todosService.items;
+    this.allCompleted = items.length && items.length === _.filter(items, {completed:true}).length;
   }
 
-  editItem(item:TodoModel, $input) {
+  private onCompleted():void {
+    // dirty, implement Angular2 Zones
+    setTimeout(() => this.ngOnInit(), 50);
+  }
+
+  editItem(item:TodoModel, $input):void {
     this.editing = item;
     // dirty, implement Angular2 Zones
     setTimeout(function() {
       $input.focus();
-    }, 100);
+    }, 50);
   }
 
-  toggleAll() {
-    _.each(this.items, (item) => {
+  private toggleAll():void {
+    _.each(this.todosService.items, (item) => {
       item.completed = !this.allCompleted;
     });
-  }
-
-  removeItem (item:TodoModel) {
-    _.remove(this.items, item);
   }
 }

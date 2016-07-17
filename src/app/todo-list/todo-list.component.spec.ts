@@ -13,8 +13,8 @@ import {
 import { TodoListComponent } from './todo-list.component';
 
 describe('Component: TodoList', () => {
-  it('should create an instance', () => {
-    let component = new TodoListComponent();
-    expect(component).toBeTruthy();
-  });
+  // it('should create an instance', () => {
+  //   let component = new TodoListComponent();
+  //   expect(component).toBeTruthy();
+  // });
 });
