@@ -1,23 +1,5 @@
 <section class="todoapp">
-  <app-new-todo [todosService]="todosService"></app-new-todo>
-  <app-todo-list [todosService]="todosService"></app-todo-list>
-  <!-- This footer should hidden by default and shown when there are todos -->
-  <footer class="footer">
-    <!-- This should be `0 items left` by default -->
-    <span class="todo-count"><strong>{{ todosService.items.length }}</strong> item left</span>
-    <!-- Remove this if you don't implement routing -->
-    <ul class="filters">
-      <li>
-        <a href ui-sref="all" ng-class="{'selected': statename === 'all'}">All</a>
-      </li>
-      <li>
-        <a href ui-sref="active" ng-class="{'selected': statename === 'active'}">Active</a>
-      </li>
-      <li>
-        <a href ui-sref="completed" ng-class="{'selected': statename === 'completed'}">Completed</a>
-      </li>
-    </ul>
-    <!-- Hidden if no completed items are left ↓ -->
-    <button class="clear-completed" (click)="clearCompleted()">Clear completed</button>
-  </footer>
+  <app-new-todo></app-new-todo>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
 </section>
