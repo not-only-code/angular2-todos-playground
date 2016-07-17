@@ -14,7 +14,7 @@
     {{/unless}}
   </head>
   <body>
-    <main-app>Loading...</main-app>
+    <app>Loading...</app>
     {{#each scripts.polyfills}}<script src="{{.}}"></script>{{/each}}
     <script>
       System.import('system-config.js').then(function () {

@@ -7,7 +7,7 @@ import { TodoModel } from './todo.model';
 
 @Component({
   moduleId: module.id,
-  selector: 'main-app',
+  selector: 'app',
   templateUrl: 'app.component.html',
   directives: [NewTodoComponent, TodoListComponent],
   providers: [TodosService]
