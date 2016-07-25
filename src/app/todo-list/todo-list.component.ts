@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { TodosService } from '../todos.service';
 import { TodoModel } from '../todo.model';
 import * as _ from 'lodash';
@@ -13,6 +13,7 @@ export class TodoListComponent implements OnInit {
   editing:TodoModel;
 
   constructor(
+    private zone:NgZone,
     private todosService:TodosService) {}
 
   ngOnInit() {
@@ -22,8 +23,9 @@ export class TodoListComponent implements OnInit {
   }
 
   private onCompleted():void {
-    // dirty, implement Angular2 Zones
-    setTimeout(() => this.ngOnInit(), 50);
+    this.zone.run(() => {
+      this.ngOnInit();
+    });
   }
 
   editItem(item:TodoModel, $input):void {
