@@ -4,6 +4,6 @@ export class Angular2TodosPlaygroundPage {
   }
 
   getParagraphText() {
-    return element(by.css('angular2-todos-playground-app h1')).getText();
+    return element(by.css('app-root h1')).getText();
   }
 }

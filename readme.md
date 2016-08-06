@@ -1,6 +1,6 @@
 # Angular2 Todo's Playground
 
-This is a small 'todos' app playground using [AngularJS 2](https://angular.io/) and [angular-cli](https://cli.angular.io/) as scaffolding tool and module bundler.
+This is a small 'todos' app playground using [AngularJS 2](https://angular.io/) and [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.11-webpack as scaffolding tool and module bundler.
 
 ## Usage
 
